@@ -19,8 +19,6 @@ if __name__ == "__main__":
     engine = SearchEngine(INDEX_PATH, IDS_PATH, LEXICON_PATH, NORMS_PATH)
 
     while True:
-        #  to run on web instead of console run python3 api.py and then inside of cs121-search folder
-        #  run npm run start to start local host (after index is built)
         query = input("Enter search query (blank to exit): ").strip()
         if not query:
             break
