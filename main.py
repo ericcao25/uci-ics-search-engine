@@ -7,10 +7,16 @@ import time
 if __name__ == "__main__":
     nltk.download("punkt", quiet=True)
 
-    dev_dir = os.path.join(os.getcwd(), "DEV")
-    build_index(dev_dir)
+    INDEX_PATH = "data/inverted_index.jsonl"
+    IDS_PATH = "data/doc_ids.json"
+    LEXICON_PATH = "data/lexicon.json"
+    NORMS_PATH = "data/norms.json"
 
-    engine = SearchEngine("data/inverted_index.jsonl", "data/doc_ids.json", "data/lexicon.json", "data/norms.json")
+    if any(not os.path.exists(p) for p in ["data", INDEX_PATH, IDS_PATH, LEXICON_PATH, NORMS_PATH]):
+        dev_dir = os.path.join(os.getcwd(), "DEV")
+        build_index(dev_dir)
+
+    engine = SearchEngine(INDEX_PATH, IDS_PATH, LEXICON_PATH, NORMS_PATH)
 
     while True:
         #  to run on web instead of console run python3 api.py and then inside of cs121-search folder

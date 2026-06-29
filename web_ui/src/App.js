@@ -29,7 +29,7 @@ function App() {
     <div className="App">
       <header className="App-header">
 
-        <h1 className="title">CS121 Search Engine</h1>
+        <h1 className="title">UCI ICS Search Engine</h1>
 
         <div className="search-wrapper">
           <input
