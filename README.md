@@ -6,12 +6,12 @@ A full-featured search engine built from scratch, capable of indexing and queryi
 
 ## Features
 
-- **Inverted index** built entirely from scratch — no search libraries (no Elasticsearch, Solr, etc.)
+- **Inverted index** built entirely from scratch without search libraries (no Elasticsearch, Solr, etc.)
 - **Porter stemming** for improved term matching across morphological variants
 - **TF-IDF ranking** with cosine similarity normalization
-- **Field-weighted scoring** — terms appearing in `<title>`, `<h1>`–`<h3>`, and `<b>` tags receive boosted weights
+- **Field-weighted scoring**: terms appearing in `<title>`, `<h1>`–`<h3>`, and `<b>` tags receive boosted weights
 - **Disk-based index** with byte-offset lexicon for sub-300ms query response without loading the full index into memory
-- **Partial index merging** — index is offloaded to disk in multiple passes and merged via a k-way heap merge
+- **Partial index merging**: index is offloaded to disk in multiple passes and merged via a k-way heap merge
 - **REST API** via Flask for web interface integration
 - **Console search interface** with query timing
 
@@ -28,7 +28,7 @@ ICS Search Engine
 │   └── search_engine.py     # Query processing and ranked retrieval using byte-offset seeks
 ├── parser.py                # Loads JSON document files from the corpus
 ├── text_tokenizer.py        # HTML parsing, tokenization, and Porter stemming
-├── cs121-search/            # React frontend
+├── web_ui/                  # React frontend
 │   ├── src/                 # Components and search UI logic
 │   ├── public/
 │   └── package.json
@@ -79,7 +79,7 @@ Where document TF is weighted by field importance:
 ### Querying
 
 1. The query is lowercased, tokenized, and stemmed to match index terms.
-2. For each query token, the lexicon provides a byte offset; the search engine seeks directly to that position in the index file — **no full index load required**.
+2. For each query token, the lexicon provides a byte offset; the search engine seeks directly to that position in the index file —> **no full index load required**.
 3. Cosine similarity scores are accumulated across query terms and the top-5 results are returned.
 
 ---
@@ -138,16 +138,17 @@ Top results:
 To use the React frontend, start the API server first, then run the frontend in a separate terminal:
 
 ```bash
-# Terminal 1 — start the Flask API
+# Terminal 1: start the Flask API
 python api.py
 
-# Terminal 2 — start the React frontend
+# Terminal 2: start the React frontend
 cd web_ui
 npm install      # first time only
 npm run start
 ```
 
 Then open `http://localhost:3000` in your browser. It should look like the following:
+
 ![Search UI screenshot](images/web_ui.png)
 
 ---
